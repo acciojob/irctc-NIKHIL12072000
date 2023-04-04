@@ -3,6 +3,7 @@ package com.driver.services;
 
 import com.driver.EntryDto.BookTicketEntryDto;
 import com.driver.model.Passenger;
+import com.driver.model.Station;
 import com.driver.model.Ticket;
 import com.driver.model.Train;
 import com.driver.repository.PassengerRepository;
@@ -31,8 +32,8 @@ public class TicketService {
 
         //Check for validity
         //Use bookedTickets List from the TrainRepository to get bookings done against that train
-        // Incase the there are insufficient tickets
-        // throw new Exception("Less tickets are available");
+        //In case the there are insufficient tickets
+        //throw new Exception("Less tickets are available");
         //otherwise book the ticket, calculate the price and other details
         //Save the information in corresponding DB Tables
         //Fare System : Check problem statement
@@ -40,9 +41,19 @@ public class TicketService {
         //throw new Exception("Invalid stations");
         //Save the bookedTickets in the train Object
         //Also in the passenger Entity change the attribute bookedTickets by using the attribute bookingPersonId.
-       //And the end return the ticketId that has come from db
+        //And the end return the ticketId that has come from db
+
+        Train train=trainRepository.findById(bookTicketEntryDto.getTrainId()).get();
+        String[] stations=train.getRoute().split(",");
+        String from=bookTicketEntryDto.getFromStation().toString();
+        String to=bookTicketEntryDto.getToStation().toString();
+        boolean a=false, b=false;
+        for(String stat:stations){
+            if(from.equals(stat)) a=true;
+            if(to.equals(stat)) b=true;
+        }
+        if(!a || !b) throw new Exception("Invalid stations");
 
        return null;
-
     }
 }

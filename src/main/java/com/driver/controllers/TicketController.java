@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/ticket")
 public class TicketController {
-
     @Autowired
     TicketService ticketService;
-
     @PostMapping("/book")
     public Integer bookTicket(@RequestBody BookTicketEntryDto bookTicketEntryDto){
-
         try {
             Integer ticketId = ticketService.bookTicket(bookTicketEntryDto);
             return ticketId;
@@ -26,5 +23,4 @@ public class TicketController {
             return null;
         }
     }
-
 }

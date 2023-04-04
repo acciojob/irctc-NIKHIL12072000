@@ -26,11 +26,9 @@ public class TrainController {
 
     @PostMapping("/add")
     public Integer addTrain(@RequestBody AddTrainEntryDto train){
-
         //We need to return the trainId of the newly added train
         Integer trainId = trainService.addTrain(train);
         return trainId;
-
     }
 
     @GetMapping("/calculate-avaiable-seats")
@@ -41,7 +39,6 @@ public class TrainController {
 
     @GetMapping("/calculate-people-onboarding")
     public Integer calculatePeopleOnBoarding(@RequestParam("trainId")Integer trainId,@RequestParam("station") Station station){
-
         try{
             Integer count = trainService.calculatePeopleBoardingAtAStation(trainId,station);
             return count;
@@ -52,9 +49,7 @@ public class TrainController {
 
     @GetMapping("/calculate-oldest-person-travelling/{trainId}")
     public Integer calculateOldestPersonTravelling(@PathVariable("trainId")Integer trainId){
-
-        //We need to find out the oldest person Travellign
-
+        //We need to find out the oldest person Travelling
         try{
             Integer age = trainService.calculateOldestPersonTravelling(trainId);
             return  age;
@@ -67,7 +62,6 @@ public class TrainController {
     public List<Integer> calculateListOfTrainIdsAtAStationInAParticularTimeRange(@RequestParam("station")Station station,
                                                                                  @RequestParam("startTime")LocalTime startTime
                                                                                  ,@RequestParam("endTime")LocalTime endTime){
-
         return trainService.trainsBetweenAGivenTime(station,startTime,endTime);
     }
 }
